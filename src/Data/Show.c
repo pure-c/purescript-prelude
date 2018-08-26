@@ -7,7 +7,7 @@ PURS_FFI_FUNC_DEF(Data_Show_showIntImpl, x, {
 
 PURS_FFI_FUNC_DEF(Data_Show_showNumberImpl, x, {
 	return PURS_ANY_STRING(
-		afmt("%.2f", * purs_any_get_float(x)));
+		afmt("%.2f", * purs_any_get_number(x)));
 })
 
 // TODO: Implement https://github.com/purescript/purescript-prelude/blob/7a691ce2658bd8eaf28439391e29506dd154fb3d/src/Data/Show.js#L29-L51
