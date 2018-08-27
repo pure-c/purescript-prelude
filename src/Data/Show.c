@@ -52,7 +52,7 @@ PURS_FFI_FUNC_2(Data_Show_showArrayImpl, f, xs, {
 		}
 	}
 
-	return PURS_ANY_STRING(out);
+	return PURS_ANY_STRING(out != NULL ? out : afmt("[]"));
 })
 
 PURS_FFI_FUNC_2(Data_Show_cons, a, xs, {
