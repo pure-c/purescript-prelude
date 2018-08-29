@@ -3,6 +3,6 @@
 
 #include "runtime/purescript.h"
 
-PURS_FFI_DECL(Data_Ord_Unsafe_unsafeCompareImpl)
+PURS_FFI_EXPORT(Data_Ord_Unsafe_unsafeCompareImpl);
 
 #endif // Data_Ord_Unsafe_FFI_H

@@ -3,6 +3,6 @@
 
 #include "runtime/purescript.h"
 
-PURS_FFI_DECL(Control_Bind_arrayBind)
+PURS_FFI_EXPORT(Control_Bind_arrayBind);
 
 #endif // Control_Bind_H

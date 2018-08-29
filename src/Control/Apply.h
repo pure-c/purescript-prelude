@@ -3,6 +3,6 @@
 
 #include "runtime/purescript.h"
 
-PURS_FFI_DECL(Control_Apply_arrayApply)
+PURS_FFI_EXPORT(Control_Apply_arrayApply);
 
 #endif // Control_Apply_H

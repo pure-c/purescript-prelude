@@ -8,5 +8,5 @@ PURS_FFI_FUNC_2(Data_Functor_arrayMap, f, _xs, {
 	purs_vec_foreach(copy, tmp, i) {
 		copy->data[i] = purs_any_app(f, tmp);
 	}
-	return PURS_ANY_ARRAY((const purs_vec_t *) copy);
+	return PURS_ANY_ARRAY_NEW((const purs_vec_t *) copy);
 })

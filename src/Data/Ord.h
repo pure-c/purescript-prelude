@@ -3,6 +3,6 @@
 
 #include "runtime/purescript.h"
 
-PURS_FFI_DECL(Data_Ord_ordArrayImpl)
+PURS_FFI_EXPORT(Data_Ord_ordArrayImpl);
 
 #endif // Data_Ord_FFI_H

@@ -27,5 +27,5 @@ PURS_FFI_FUNC_3(Record_Unsafe_unsafeSet, key, value, x, {
 PURS_FFI_FUNC_2(Record_Unsafe_unsafeDelete, key, x, {
 	const purs_record_t * rec = purs_any_get_record(x);
 	const void * key_ = purs_any_get_string(key)->data;
-	return PURS_ANY_RECORD(purs_record_remove(rec, key_));
+	return PURS_ANY_RECORD_NEW(purs_record_remove(rec, key_));
 })

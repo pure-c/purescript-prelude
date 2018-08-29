@@ -1,24 +1,24 @@
 #include "runtime/purescript.h"
 
 PURS_FFI_FUNC_1(Data_Show_showIntImpl, x, {
-	return PURS_ANY_STRING(
+	return PURS_ANY_STRING_NEW(
 		afmt("%i", * purs_any_get_int(x)));
 })
 
 PURS_FFI_FUNC_1(Data_Show_showNumberImpl, x, {
-	return PURS_ANY_STRING(
+	return PURS_ANY_STRING_NEW(
 		afmt("%.2f", * purs_any_get_number(x)));
 })
 
 // TODO: Implement https://github.com/purescript/purescript-prelude/blob/7a691ce2658bd8eaf28439391e29506dd154fb3d/src/Data/Show.js#L29-L51
 PURS_FFI_FUNC_1(Data_Show_showStringImpl, x, {
-	return PURS_ANY_STRING(
+	return PURS_ANY_STRING_NEW(
 		afmt("\"%s\"", purs_any_get_string(x)->data));
 })
 
 // TODO: Implement https://github.com/purescript-c/purescript-prelude/blob/a878e8d9531cf8c549ef46dfce16988380792cc2/src/Data/Show.js#L12-L27
 PURS_FFI_FUNC_1(Data_Show_showCharImpl, x, {
-	return PURS_ANY_STRING(
+	return PURS_ANY_STRING_NEW(
 		afmt("'%s'", purs_any_get_string(x)->data));
 })
 
@@ -52,11 +52,11 @@ PURS_FFI_FUNC_2(Data_Show_showArrayImpl, f, xs, {
 		}
 	}
 
-	return PURS_ANY_STRING(out != NULL ? out : afmt("[]"));
+	return PURS_ANY_STRING_NEW(out != NULL ? out : afmt("[]"));
 })
 
 PURS_FFI_FUNC_2(Data_Show_cons, a, xs, {
-	return PURS_ANY_ARRAY(
+	return PURS_ANY_ARRAY_NEW(
 		purs_vec_insert(purs_any_get_array(xs),
 				0,
 				a));
@@ -80,5 +80,5 @@ PURS_FFI_FUNC_2(Data_Show_join, a, xs, {
 			free(tmp_out);
 		}
 	}
-	return PURS_ANY_STRING(out);
+	return PURS_ANY_STRING_NEW(out);
 })
