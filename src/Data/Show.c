@@ -18,8 +18,15 @@ PURS_FFI_FUNC_1(Data_Show_showStringImpl, x, {
 
 // TODO: Implement https://github.com/purescript-c/purescript-prelude/blob/a878e8d9531cf8c549ef46dfce16988380792cc2/src/Data/Show.js#L12-L27
 PURS_FFI_FUNC_1(Data_Show_showCharImpl, x, {
-	return PURS_ANY_STRING_NEW(
-		afmt("'%s'", purs_any_get_string(x)->data));
+	utf8_int32_t chr = * purs_any_get_char(x);
+	char * s = 0;
+	size_t bytes = utf8codepointsize(chr);
+	s = (char *) malloc(bytes + 1);
+	utf8catcodepoint(s, chr, bytes);
+	s[bytes + 1] = '\0';
+	const purs_any_t * out = PURS_ANY_STRING_NEW(afmt("'%s'", s));
+	free(s);
+	return out;
 })
 
 PURS_FFI_FUNC_2(Data_Show_showArrayImpl, f, xs, {
