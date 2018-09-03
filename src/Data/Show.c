@@ -32,12 +32,14 @@ PURS_FFI_FUNC_1(Data_Show_showCharImpl, x, {
 PURS_FFI_FUNC_2(Data_Show_showArrayImpl, f, xs, {
 	const purs_vec_t * zs = purs_any_get_array(xs);
 	const purs_any_t * tmp;
+	const purs_any_t * tmp_r;
 	const managed_utf8str_t * tmp_s;
 	int i;
 	char * out = NULL;
 	char * tmp_out;
 	purs_vec_foreach(zs, tmp, i) {
-		tmp_s = purs_any_get_string(purs_any_app(f, tmp));
+		const purs_any_t * tmp_r = purs_any_app(f, tmp);
+		tmp_s = purs_any_get_string(tmp_r);
 		tmp_out = out;
 
 		if (i == 0) {
