@@ -1,4 +1,4 @@
-#include "runtime/purescript.h"
+#include <purescript.h>
 
 PURS_FFI_FUNC_2(Record_Unsafe_unsafeHas, key, x, {
 	const purs_record_t * rec = purs_any_get_record(x);

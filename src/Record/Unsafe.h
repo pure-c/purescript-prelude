@@ -1,7 +1,7 @@
 #ifndef Record_Unsafe_FFI_H
 #define Record_Unsafe_FFI_H
 
-#include "runtime/purescript.h"
+#include <purescript.h>
 
 PURS_FFI_EXPORT(Record_Unsafe_unsafeHas);
 PURS_FFI_EXPORT(Record_Unsafe_unsafeGet);

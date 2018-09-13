@@ -1,4 +1,4 @@
-#include "runtime/purescript.h"
+#include <purescript.h>
 
 PURS_FFI_FUNC_5(Data_Ord_Unsafe_unsafeCompareImpl, lt, eq, gt, _x, _y, {
 	const purs_any_t * x = purs_any_unthunk(_x);

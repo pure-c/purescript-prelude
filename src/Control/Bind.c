@@ -1,4 +1,4 @@
-#include "runtime/purescript.h"
+#include <purescript.h>
 
 PURS_FFI_FUNC_2(Control_Bind_arrayBind, _xs, f, {
 	int i;

@@ -1,4 +1,4 @@
-#include "runtime/purescript.h"
+#include <purescript.h>
 
 PURS_FFI_FUNC_2(Data_Ring_intSub, x, y, {
 	return PURS_ANY_INT_NEW(*purs_any_get_int(x) - *purs_any_get_int(y));

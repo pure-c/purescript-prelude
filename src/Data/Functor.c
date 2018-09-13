@@ -1,4 +1,4 @@
-#include "runtime/purescript.h"
+#include <purescript.h>
 
 PURS_FFI_FUNC_2(Data_Functor_arrayMap, f, _xs, {
 	const purs_vec_t * xs = purs_any_get_array(_xs);

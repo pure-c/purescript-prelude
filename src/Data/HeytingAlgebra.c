@@ -1,4 +1,4 @@
-#include "runtime/purescript.h"
+#include <purescript.h>
 
 PURS_FFI_FUNC_2(Data_HeytingAlgebra_boolConj, x, y, {
 	if (*purs_any_get_int(x) && *purs_any_get_int(y)) {

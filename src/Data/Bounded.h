@@ -1,7 +1,7 @@
 #ifndef Data_Bounded_H
 #define Data_Bounded_H
 
-#include "runtime/purescript.h"
+#include <purescript.h>
 
 PURS_FFI_EXPORT(Data_Bounded_topInt);
 PURS_FFI_EXPORT(Data_Bounded_bottomInt);

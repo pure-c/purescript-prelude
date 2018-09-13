@@ -1,5 +1,5 @@
 #include <math.h>
-#include "runtime/purescript.h"
+#include <purescript.h>
 
 PURS_FFI_VALUE(
 	Data_Bounded_topInt,

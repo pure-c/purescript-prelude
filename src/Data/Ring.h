@@ -1,7 +1,7 @@
 #ifndef Data_Ring_H
 #define Data_Ring_H
 
-#include "runtime/purescript.h"
+#include <purescript.h>
 
 PURS_FFI_EXPORT(Data_Ring_intSub);
 PURS_FFI_EXPORT(Data_Ring_numSub);

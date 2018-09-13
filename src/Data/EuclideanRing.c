@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <math.h>
-#include "runtime/purescript.h"
+#include <purescript.h>
 
 #define Data_EuclideanRing_MIN(a,b) (((a)<(b))?(a):(b))
 

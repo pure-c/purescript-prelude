@@ -1,4 +1,4 @@
-#include "runtime/purescript.h"
+#include <purescript.h>
 
 PURS_FFI_FUNC_2(Data_Eq_refEq, x, y, {
 	return purs_any_eq(x, y);

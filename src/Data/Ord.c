@@ -1,4 +1,4 @@
-#include "runtime/purescript.h"
+#include <purescript.h>
 
 static const purs_any_t neg_one = PURS_ANY_INT(-1);
 static const purs_any_t pos_one = PURS_ANY_INT(1);

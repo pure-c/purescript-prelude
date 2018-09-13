@@ -1,7 +1,7 @@
 #ifndef Data_Functor_H
 #define Data_Functor_H
 
-#include "runtime/purescript.h"
+#include <purescript.h>
 
 PURS_FFI_EXPORT(Data_Functor_arrayMap);
 

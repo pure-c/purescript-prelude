@@ -1,7 +1,7 @@
 #ifndef Data_Semiring_H
 #define Data_Semiring_H
 
-#include "runtime/purescript.h"
+#include <purescript.h>
 
 PURS_FFI_EXPORT(Data_Semiring_intAdd);
 PURS_FFI_EXPORT(Data_Semiring_intMul);

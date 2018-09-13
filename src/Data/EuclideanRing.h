@@ -1,7 +1,7 @@
 #ifndef Data_EuclideanRing_H
 #define Data_EuclideanRing_H
 
-#include "runtime/purescript.h"
+#include <purescript.h>
 
 PURS_FFI_EXPORT(Data_EuclideanRing_intDegree);
 PURS_FFI_EXPORT(Data_EuclideanRing_intDiv);

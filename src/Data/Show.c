@@ -1,4 +1,4 @@
-#include "runtime/purescript.h"
+#include <purescript.h>
 
 PURS_FFI_FUNC_1(Data_Show_showIntImpl, x, {
 	return PURS_ANY_STRING_NEW(

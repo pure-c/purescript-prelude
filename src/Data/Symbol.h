@@ -1,7 +1,7 @@
 #ifndef Data_Symbol_FFI_H
 #define Data_Symbol_FFI_H
 
-#include "runtime/purescript.h"
+#include <purescript.h>
 
 PURS_FFI_EXPORT(Data_Symbol_unsafeCoerce);
 
