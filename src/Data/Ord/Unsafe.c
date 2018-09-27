@@ -26,8 +26,8 @@ PURS_FFI_FUNC_5(Data_Ord_Unsafe_unsafeCompareImpl, lt, eq, gt, _x, _y, {
 		return x_i < y_i ? lt : x_i == y_i ? eq : gt;
 	}
 	case PURS_ANY_TAG_STRING: {
-		const void * x_utf8 = purs_any_get_string(x)->data;
-		const void * y_utf8 = purs_any_get_string(y)->data;
+		const void * x_utf8 = purs_any_get_string(x);
+		const void * y_utf8 = purs_any_get_string(y);
 		int result = utf8cmp(x_utf8, y_utf8);
 		return result < 0 ? lt : result == 0 ? eq : gt;
 	}
