@@ -31,4 +31,4 @@ PURS_FFI_FUNC_3(Data_Ord_ordArrayImpl, f, _xs, _ys, {
 	} else {
 		return &pos_one;
 	}
-})
+});

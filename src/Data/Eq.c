@@ -2,7 +2,7 @@
 
 PURS_FFI_FUNC_2(Data_Eq_refEq, x, y, {
 	return purs_any_eq(x, y);
-})
+});
 
 PURS_FFI_FUNC_3(Data_Eq_eqArrayImpl, f, xs, ys, {
 	const purs_vec_t * xs_v = purs_any_get_array(xs);
@@ -20,4 +20,4 @@ PURS_FFI_FUNC_3(Data_Eq_eqArrayImpl, f, xs, ys, {
 		}
 		return purs_any_true;
 	}
-})
+});
