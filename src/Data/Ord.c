@@ -17,7 +17,7 @@ PURS_FFI_FUNC_3(Data_Ord_ordArrayImpl, f, _xs, _ys, {
 	while (i < xlen && i < ylen) {
 		x = xs->data[i];
 		y = ys->data[i];
-		o = *purs_any_get_int(purs_any_app(purs_any_app(f, x), y));
+		o = purs_any_get_int(purs_any_app(purs_any_app(f, x), y));
 		if (o != 0) {
 			return &zero;
 		}
@@ -31,4 +31,4 @@ PURS_FFI_FUNC_3(Data_Ord_ordArrayImpl, f, _xs, _ys, {
 	} else {
 		return &pos_one;
 	}
-})
+});

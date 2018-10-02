@@ -16,5 +16,5 @@ PURS_FFI_FUNC_2(Control_Apply_arrayApply, _fs, _xs, {
 	}
 	out->length = n;
 
-	return PURS_ANY_ARRAY_NEW(out);
-})
+	return purs_any_array_new(out);
+});

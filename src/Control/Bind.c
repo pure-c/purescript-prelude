@@ -14,5 +14,5 @@ PURS_FFI_FUNC_2(Control_Bind_arrayBind, _xs, f, {
 			purs_vec_push_mut(out, tmp_2);
 		}
 	}
-	return PURS_ANY_ARRAY_NEW((const purs_vec_t *) out);
-})
+	return purs_any_array_new((const purs_vec_t *) out);
+});
