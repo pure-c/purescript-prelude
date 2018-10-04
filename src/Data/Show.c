@@ -1,13 +1,16 @@
+#include <math.h>
 #include <purescript.h>
 
 PURS_FFI_FUNC_1(Data_Show_showIntImpl, x, {
-	return purs_any_string_new(
-		afmt("%i", purs_any_get_int(x)));
+	if (purs_any_is_NaN(x)) {
+		return purs_any_string_new(afmt("%f", NAN));
+	} else {
+		return purs_any_string_new(afmt("%i", purs_any_get_int(x)));
+	}
 });
 
 PURS_FFI_FUNC_1(Data_Show_showNumberImpl, x, {
-	return purs_any_string_new(
-		afmt("%.2f", purs_any_get_num(x)));
+	return purs_any_string_new(afmt("%.2f", purs_any_get_num(x)));
 });
 
 // TODO: Implement https://github.com/purescript/purescript-prelude/blob/7a691ce2658bd8eaf28439391e29506dd154fb3d/src/Data/Show.js#L29-L51
