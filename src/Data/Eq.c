@@ -1,7 +1,7 @@
 #include <purescript.h>
 
 PURS_FFI_FUNC_2(Data_Eq_refEq, x, y, {
-	return purs_any_eq(x, y);
+	return purs_any_bool(purs_any_eq(x, y));
 });
 
 PURS_FFI_FUNC_3(Data_Eq_eqArrayImpl, f, xs, ys, {
@@ -14,7 +14,7 @@ PURS_FFI_FUNC_3(Data_Eq_eqArrayImpl, f, xs, ys, {
 		int i;
 		const purs_any_t * tmp;
 		purs_vec_foreach(xs_v, tmp, i) {
-			if (purs_any_is_false(purs_any_eq(tmp, ys_v->data[i]))) {
+			if (purs_any_eq(tmp, ys_v->data[i]) == 0) {
 				return purs_any_false;
 			}
 		}
