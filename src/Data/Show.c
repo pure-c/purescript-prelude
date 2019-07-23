@@ -14,8 +14,11 @@ PURS_FFI_FUNC_1(Data_Show_showNumberImpl, x, {
 });
 
 // TODO: Implement https://github.com/purescript/purescript-prelude/blob/7a691ce2658bd8eaf28439391e29506dd154fb3d/src/Data/Show.js#L29-L51
-PURS_FFI_FUNC_1(Data_Show_showStringImpl, x, {
-	return purs_any_string(purs_str_new("\"%s\"", purs_any_get_string(x)));
+PURS_FFI_FUNC_1(Data_Show_showStringImpl, s_, {
+	const purs_str_t * s = purs_any_force_string(s_);
+	purs_any_t ret = purs_any_string(purs_str_new("\"%s\"", s->data));
+	PURS_RC_RELEASE(s);
+	return ret;
 });
 
 // TODO: Implement https://github.com/purescript-c/purescript-prelude/blob/a878e8d9531cf8c549ef46dfce16988380792cc2/src/Data/Show.js#L12-L27
@@ -49,7 +52,7 @@ static inline purs_any_t showArrayImpl(purs_any_t f, purs_any_t xs_) {
 
 	purs_vec_foreach(xs, tmp, i) {
 		tmp_r = purs_any_app(f, tmp);
-		tmp_s = purs_any_get_string(tmp_r);
+		tmp_s = purs_any_force_string(tmp_r);
 		tmp_out = out;
 
 		if (i == 0) {
@@ -69,9 +72,13 @@ static inline purs_any_t showArrayImpl(purs_any_t f, purs_any_t xs_) {
 		if (tmp_out != NULL) {
 			free(tmp_out);
 		}
+
+		PURS_RC_RELEASE(tmp_s);
+		PURS_ANY_RELEASE(tmp_r);
 	}
 
 	ret = purs_str_new(out);
+	free (out);
 end:
 	PURS_RC_RELEASE(xs);
 	return purs_any_string(ret);
