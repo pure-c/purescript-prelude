@@ -11,24 +11,24 @@ PURS_FFI_FUNC_3(Data_Ord_ordArrayImpl, f, _xs, _ys, {
 	int i = 0;
 	int xlen = xs->length;
 	int ylen = ys->length;
-	const purs_any_t * x;
-	const purs_any_t * y;
+	purs_any_t x;
+	purs_any_t y;
 
 	while (i < xlen && i < ylen) {
 		x = xs->data[i];
 		y = ys->data[i];
 		o = purs_any_get_int(purs_any_app(purs_any_app(f, x), y));
 		if (o != 0) {
-			return &zero;
+			return zero;
 		}
 		i++;
 	}
 
 	if (xlen == ylen) {
-		return &zero;
+		return zero;
 	} else if (xlen > ylen) {
-		return &neg_one;
+		return neg_one;
 	} else {
-		return &pos_one;
+		return pos_one;
 	}
 });
