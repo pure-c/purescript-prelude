@@ -3,32 +3,30 @@
 
 PURS_FFI_FUNC_1(Data_Show_showIntImpl, x, {
 	if (purs_any_is_NaN(x)) {
-		return purs_any_string(afmt("%f", NAN));
+		return purs_any_string(purs_str_new("%f", NAN));
 	} else {
-		return purs_any_string(afmt("%i", purs_any_get_int(x)));
+		return purs_any_string(purs_str_new("%i", purs_any_force_int(x)));
 	}
 });
 
 PURS_FFI_FUNC_1(Data_Show_showNumberImpl, x, {
-	return purs_any_string(afmt("%.2f", purs_any_get_num(x)));
+	return purs_any_string(purs_str_new("%.2f", purs_any_force_num(x)));
 });
 
 // TODO: Implement https://github.com/purescript/purescript-prelude/blob/7a691ce2658bd8eaf28439391e29506dd154fb3d/src/Data/Show.js#L29-L51
 PURS_FFI_FUNC_1(Data_Show_showStringImpl, x, {
-	return purs_any_string(
-		afmt("\"%s\"", purs_any_get_string(x)));
+	return purs_any_string(purs_str_new("\"%s\"", purs_any_get_string(x)));
 });
 
 // TODO: Implement https://github.com/purescript-c/purescript-prelude/blob/a878e8d9531cf8c549ef46dfce16988380792cc2/src/Data/Show.js#L12-L27
 PURS_FFI_FUNC_1(Data_Show_showCharImpl, x, {
-	utf8_int32_t chr = purs_any_get_char(x);
-	char * s = 0;
+	purs_any_char_t chr = purs_any_force_char(x);
 	size_t bytes = utf8codepointsize(chr);
-	s = (char *) malloc(bytes + 1);
-	utf8catcodepoint(s, chr, bytes);
-	s[bytes + 1] = '\0';
-	purs_any_t out = purs_any_string(afmt("'%s'", s));
-	free(s);
+	char * buf = malloc(bytes + 1);
+	utf8catcodepoint(buf, chr, bytes);
+	buf[bytes + 1] = '\0';
+	purs_any_t out = purs_any_string(purs_str_new("'%s'", buf));
+	free(buf);
 	return out;
 });
 
@@ -39,7 +37,7 @@ static inline purs_any_t showArrayImpl(purs_any_t f, purs_any_t xs_) {
 	int i;
 	char * out = NULL;
 	char * tmp_out;
-	purs_str_t * ret;
+	const purs_str_t * ret;
 
 	const purs_vec_t * xs = purs_any_force_array(xs_);
 
@@ -88,23 +86,43 @@ PURS_FFI_FUNC_2(Data_Show_cons, a, xs, {
 		purs_vec_insert(purs_any_get_array(xs), 0, a));
 });
 
-PURS_FFI_FUNC_2(Data_Show_join, a, xs, {
-	const purs_vec_t * zs = purs_any_get_array(xs);
-	const void * sep = purs_any_get_string(a);
+purs_any_t join(purs_any_t sep_, purs_any_t zs_) {
+	const purs_vec_t * zs = purs_any_force_array(zs_);
+	const purs_str_t * sep = purs_any_force_string(sep_);
 	purs_any_t tmp;
+	purs_any_t ret;
 	int i;
 	char * out = NULL;
 	char * tmp_out;
+	const purs_str_t * tmp_str;
+
+	if (zs->length == 0) {
+		ret = purs_any_string(purs_str_new(""));
+		goto end;
+	}
+
 	purs_vec_foreach(zs, tmp, i) {
+		tmp_str = purs_any_force_string(tmp);
 		tmp_out = out;
 		out = afmt("%s%s%s",
 			   out == NULL ? "" : out,
-			   out == NULL ? "" : sep,
-			   purs_any_get_string(tmp));
-
+			   out == NULL ? "" : sep->data,
+			   tmp_str->data);
 		if (tmp_out != NULL) {
 			free(tmp_out);
 		}
+		PURS_RC_RELEASE(tmp_str);
 	}
-	return purs_any_string(out);
+
+	ret = purs_any_string(purs_str_new(out));
+
+end:
+	PURS_RC_RELEASE(zs);
+	PURS_RC_RELEASE(sep);
+	if (out != NULL) free(out);
+	return ret;
+}
+
+PURS_FFI_FUNC_2(Data_Show_join, sep_, zs_, {
+	return join(sep_, zs_);
 });
