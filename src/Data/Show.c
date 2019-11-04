@@ -1,28 +1,28 @@
 #include <math.h>
 #include <purescript.h>
 
-PURS_FFI_FUNC_1(Data_Show_showIntImpl, x, {
+PURS_FFI_FUNC_1(Data_Show_showIntImpl, x) {
 	if (purs_any_is_NaN(x)) {
 		return purs_any_string(purs_str_new("%f", NAN));
 	} else {
 		return purs_any_string(purs_str_new("%i", purs_any_force_int(x)));
 	}
-});
+}
 
-PURS_FFI_FUNC_1(Data_Show_showNumberImpl, x, {
+PURS_FFI_FUNC_1(Data_Show_showNumberImpl, x) {
 	return purs_any_string(purs_str_new("%.2f", purs_any_force_num(x)));
-});
+}
 
 // TODO: Implement https://github.com/purescript/purescript-prelude/blob/7a691ce2658bd8eaf28439391e29506dd154fb3d/src/Data/Show.js#L29-L51
-PURS_FFI_FUNC_1(Data_Show_showStringImpl, s_, {
+PURS_FFI_FUNC_1(Data_Show_showStringImpl, s_) {
 	const purs_str_t * s = purs_any_force_string(s_);
 	purs_any_t ret = purs_any_string(purs_str_new("\"%s\"", s->data));
 	PURS_RC_RELEASE(s);
 	return ret;
-});
+}
 
 // TODO: Implement https://github.com/purescript-c/purescript-prelude/blob/a878e8d9531cf8c549ef46dfce16988380792cc2/src/Data/Show.js#L12-L27
-PURS_FFI_FUNC_1(Data_Show_showCharImpl, x, {
+PURS_FFI_FUNC_1(Data_Show_showCharImpl, x) {
 	purs_any_char_t chr = purs_any_force_char(x);
 	size_t bytes = utf8codepointsize(chr);
 	char * buf = malloc(bytes + 1);
@@ -31,7 +31,7 @@ PURS_FFI_FUNC_1(Data_Show_showCharImpl, x, {
 	purs_any_t out = purs_any_string(purs_str_new("'%s'", buf));
 	free(buf);
 	return out;
-});
+}
 
 static inline purs_any_t showArrayImpl(purs_any_t f, purs_any_t xs_) {
 	purs_any_t tmp;
@@ -84,14 +84,14 @@ end:
 	return purs_any_string(ret);
 }
 
-PURS_FFI_FUNC_2(Data_Show_showArrayImpl, f, xs, {
+PURS_FFI_FUNC_2(Data_Show_showArrayImpl, f, xs) {
 	return showArrayImpl(f, xs);
-});
+}
 
-PURS_FFI_FUNC_2(Data_Show_cons, a, xs, {
+PURS_FFI_FUNC_2(Data_Show_cons, a, xs) {
 	return purs_any_array(
 		purs_vec_insert(purs_any_get_array(xs), 0, a));
-});
+}
 
 purs_any_t join(purs_any_t sep_, purs_any_t zs_) {
 	const purs_vec_t * zs = purs_any_force_array(zs_);
@@ -130,6 +130,6 @@ end:
 	return ret;
 }
 
-PURS_FFI_FUNC_2(Data_Show_join, sep_, zs_, {
+PURS_FFI_FUNC_2(Data_Show_join, sep_, zs_) {
 	return join(sep_, zs_);
-});
+}

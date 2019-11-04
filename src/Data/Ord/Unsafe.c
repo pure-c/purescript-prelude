@@ -1,6 +1,6 @@
 #include <purescript.h>
 
-PURS_FFI_FUNC_5(Data_Ord_Unsafe_unsafeCompareImpl, lt, eq, gt, _x, _y, {
+PURS_FFI_FUNC_5(Data_Ord_Unsafe_unsafeCompareImpl, lt, eq, gt, _x, _y) {
 	int x_has_changed = 0;
 	int y_has_changed = 0;
 	purs_any_t x = purs_any_unthunk(_x, &x_has_changed);
@@ -46,4 +46,4 @@ PURS_FFI_FUNC_5(Data_Ord_Unsafe_unsafeCompareImpl, lt, eq, gt, _x, _y, {
 	if (x_has_changed) PURS_ANY_RELEASE(x);
 	if (y_has_changed) PURS_ANY_RELEASE(y);
 	return ret;
-});
+}

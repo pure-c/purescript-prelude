@@ -1,6 +1,6 @@
 #include <purescript.h>
 
-PURS_FFI_FUNC_2(Control_Bind_arrayBind, _xs, f, {
+PURS_FFI_FUNC_2(Control_Bind_arrayBind, _xs, f) {
 	int i;
 	purs_any_t tmp;
 	const purs_vec_t * xs = purs_any_get_array(_xs);
@@ -14,4 +14,4 @@ PURS_FFI_FUNC_2(Control_Bind_arrayBind, _xs, f, {
 		}
 	}
 	return purs_any_array((const purs_vec_t *) out);
-});
+}

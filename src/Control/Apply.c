@@ -1,6 +1,6 @@
 #include <purescript.h>
 
-PURS_FFI_FUNC_2(Control_Apply_arrayApply, _fs, _xs, {
+PURS_FFI_FUNC_2(Control_Apply_arrayApply, _fs, _xs) {
 	const purs_vec_t * fs = purs_any_force_array(_fs);
 	const purs_vec_t * xs = purs_any_force_array(_xs);
 
@@ -21,4 +21,4 @@ PURS_FFI_FUNC_2(Control_Apply_arrayApply, _fs, _xs, {
 	PURS_RC_RELEASE(xs);
 
 	return purs_any_array((const purs_vec_t *) out);
-});
+}

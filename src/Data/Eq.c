@@ -1,10 +1,10 @@
 #include <purescript.h>
 
-PURS_FFI_FUNC_2(Data_Eq_refEq, x, y, {
+PURS_FFI_FUNC_2(Data_Eq_refEq, x, y) {
 	return purs_any_bool(purs_any_eq(x, y));
-});
+}
 
-PURS_FFI_FUNC_3(Data_Eq_eqArrayImpl, f, xs_, ys_, {
+PURS_FFI_FUNC_3(Data_Eq_eqArrayImpl, f, xs_, ys_) {
 	purs_any_t ret;
 	const purs_vec_t * xs = purs_any_force_array(xs_);
 	const purs_vec_t * ys = purs_any_force_array(ys_);
@@ -33,4 +33,4 @@ end:
 	PURS_RC_RELEASE(xs);
 	PURS_RC_RELEASE(ys);
 	return ret;
-});
+}
