@@ -14,14 +14,14 @@ PURS_FFI_FUNC_5(Data_Ord_Unsafe_unsafeCompareImpl, lt, eq, gt, _x, _y) {
 
 	switch (x.tag) {
 	case PURS_ANY_TAG_INT: {
-		purs_any_int_t x_i = purs_any_get_int(x);
-		purs_any_int_t y_i = purs_any_get_int(y);
+		purs_int_t x_i = purs_any_get_int(x);
+		purs_int_t y_i = purs_any_get_int(y);
 		ret = x_i < y_i ? lt : x_i == y_i ? eq : gt;
 		goto cleanup;
 	}
 	case PURS_ANY_TAG_NUM: {
-		double x_n = purs_any_get_num(x);
-		double y_n = purs_any_get_num(y);
+		purs_num_t x_n = purs_any_get_num(x);
+		purs_num_t y_n = purs_any_get_num(y);
 		ret = x_n < y_n ? lt : x_n == y_n ? eq : gt;
 		goto cleanup;
 	}

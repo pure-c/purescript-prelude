@@ -4,9 +4,8 @@
 PURS_FFI_FUNC_1(Data_Show_showIntImpl, x) {
 	if (purs_any_is_NaN(x)) {
 		return purs_any_string(purs_str_new("%f", NAN));
-	} else {
-		return purs_any_string(purs_str_new("%i", purs_any_force_int(x)));
 	}
+	return purs_any_string(purs_str_new("%i", purs_any_force_int(x)));
 }
 
 PURS_FFI_FUNC_1(Data_Show_showNumberImpl, x) {
@@ -23,7 +22,7 @@ PURS_FFI_FUNC_1(Data_Show_showStringImpl, s_) {
 
 // TODO: Implement https://github.com/purescript-c/purescript-prelude/blob/a878e8d9531cf8c549ef46dfce16988380792cc2/src/Data/Show.js#L12-L27
 PURS_FFI_FUNC_1(Data_Show_showCharImpl, x) {
-	purs_any_char_t chr = purs_any_force_char(x);
+	purs_char_t chr = purs_any_force_char(x);
 	size_t bytes = utf8codepointsize(chr);
 	char * buf = malloc(bytes + 1);
 	utf8catcodepoint(buf, chr, bytes);

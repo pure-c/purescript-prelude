@@ -1,14 +1,17 @@
-default: test
+default: main
 .PHONY: default
 
 include $(PUREC_DIR)/mk/target.mk
 
-main: bower_components
+main: .spago
 
 main_CFLAGS = -g
-main_LD_FLAGS =
+main_LD_FLAGS = -lm
 
 $(eval $(call purs_mk_target,main,Test.Main,src test))
+$(eval $(call purs_mk_target,lib,,src))
 
-test: main
-	valgrind --track-origins=yes --leak-check=full ./main.out
+check: main
+	./main.out
+
+.PHONY: check
