@@ -24,7 +24,7 @@ PURS_FFI_FUNC_1(Data_Show_showStringImpl, s_) {
 PURS_FFI_FUNC_1(Data_Show_showCharImpl, x) {
 	purs_char_t chr = purs_any_force_char(x);
 	size_t bytes = utf8codepointsize(chr);
-	char * buf = malloc(bytes + 1);
+	char *buf = malloc(bytes + 1);
 	utf8catcodepoint(buf, chr, bytes);
 	buf[bytes + 1] = '\0';
 	purs_any_t out = purs_any_string(purs_str_new("'%s'", buf));
@@ -35,13 +35,13 @@ PURS_FFI_FUNC_1(Data_Show_showCharImpl, x) {
 static inline purs_any_t showArrayImpl(purs_any_t f, purs_any_t xs_) {
 	purs_any_t tmp;
 	purs_any_t tmp_r;
-	const purs_str_t * tmp_s;
+	const purs_str_t *tmp_s;
 	int i;
-	char * out = NULL;
-	char * tmp_out;
-	const purs_str_t * ret;
+	char *out = NULL;
+	char *tmp_out;
+	const purs_str_t *ret;
 
-	const purs_vec_t * xs = purs_any_force_array(xs_);
+	const purs_vec_t *xs = purs_any_force_array(xs_);
 
 	if (xs == NULL) {
 		/* todo: could be statically allocated */
@@ -88,19 +88,21 @@ PURS_FFI_FUNC_2(Data_Show_showArrayImpl, f, xs) {
 }
 
 PURS_FFI_FUNC_2(Data_Show_cons, a, xs) {
-	return purs_any_array(
-		purs_vec_insert(purs_any_get_array(xs), 0, a));
+	const purs_vec_t *zs = purs_any_force_array(xs);
+	const purs_vec_t *copy = purs_vec_insert(zs, 0, a);
+	PURS_RC_RELEASE(zs);
+	return purs_any_array(copy);
 }
 
 purs_any_t join(purs_any_t sep_, purs_any_t zs_) {
-	const purs_vec_t * zs = purs_any_force_array(zs_);
-	const purs_str_t * sep = purs_any_force_string(sep_);
+	const purs_vec_t *zs = purs_any_force_array(zs_);
+	const purs_str_t *sep = purs_any_force_string(sep_);
 	purs_any_t tmp;
 	purs_any_t ret;
 	int i;
-	char * out = NULL;
-	char * tmp_out;
-	const purs_str_t * tmp_str;
+	char *out = NULL;
+	char *tmp_out;
+	const purs_str_t *tmp_str;
 
 	if (zs->length == 0) {
 		ret = purs_any_string(purs_str_new(""));

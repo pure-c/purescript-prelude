@@ -23,7 +23,7 @@ PURS_FFI_FUNC_3(Data_Ord_ordArrayImpl, f, _xs, _ys) {
 		tmp = purs_any_app(f, x);
 		o = purs_any_app(tmp, y);
 		PURS_ANY_RELEASE(tmp);
-		if (purs_any_get_int(o) != 0) {
+		if (purs_any_force_int(o) != 0) {
 			ret = o;
 			goto cleanup;
 		}

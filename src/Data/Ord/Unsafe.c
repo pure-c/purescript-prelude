@@ -14,26 +14,28 @@ PURS_FFI_FUNC_5(Data_Ord_Unsafe_unsafeCompareImpl, lt, eq, gt, _x, _y) {
 
 	switch (x.tag) {
 	case PURS_ANY_TAG_INT: {
-		purs_int_t x_i = purs_any_get_int(x);
-		purs_int_t y_i = purs_any_get_int(y);
+		purs_int_t x_i = purs_any_force_int(x);
+		purs_int_t y_i = purs_any_force_int(y);
 		ret = x_i < y_i ? lt : x_i == y_i ? eq : gt;
 		goto cleanup;
 	}
 	case PURS_ANY_TAG_NUM: {
-		purs_num_t x_n = purs_any_get_num(x);
-		purs_num_t y_n = purs_any_get_num(y);
+		purs_num_t x_n = purs_any_force_num(x);
+		purs_num_t y_n = purs_any_force_num(y);
 		ret = x_n < y_n ? lt : x_n == y_n ? eq : gt;
 		goto cleanup;
 	}
 	case PURS_ANY_TAG_CHAR: {
-		utf8_int32_t x_i = purs_any_get_char(x);
-		utf8_int32_t y_i = purs_any_get_char(y);
+		utf8_int32_t x_i = purs_any_force_char(x);
+		utf8_int32_t y_i = purs_any_force_char(y);
 		ret = x_i < y_i ? lt : x_i == y_i ? eq : gt;
 		goto cleanup;
 	}
 	case PURS_ANY_TAG_STRING: {
-		const purs_str_t * x_str = purs_any_get_string(x);
-		const purs_str_t * y_str = purs_any_get_string(y);
+		const purs_str_t *x_str = purs_any_force_string(x);
+		const purs_str_t *y_str = purs_any_force_string(y);
+		PURS_RC_RELEASE(x_str);
+		PURS_RC_RELEASE(y_str);
 		int result = utf8cmp(x_str->data, y_str->data); /* TODO: alias utf8cmp */
 		ret = result < 0 ? lt : result == 0 ? eq : gt;
 		goto cleanup;
