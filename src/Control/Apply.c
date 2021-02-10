@@ -1,10 +1,10 @@
 #include <purescript.h>
 
 PURS_FFI_FUNC_2(Control_Apply_arrayApply, _fs, _xs) {
-	const purs_vec_t * fs = purs_any_force_array(_fs);
-	const purs_vec_t * xs = purs_any_force_array(_xs);
+	const purs_vec_t *fs = purs_any_force_array(_fs);
+	const purs_vec_t *xs = purs_any_force_array(_xs);
 
-	purs_vec_t * out = (purs_vec_t *) purs_vec_new();
+	purs_vec_t *out = (purs_vec_t *) purs_vec_new();
 	purs_vec_reserve(out, fs->length * xs->length);
 
 	int n = 0;
