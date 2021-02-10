@@ -23,12 +23,15 @@ PURS_FFI_FUNC_1(Data_Show_showStringImpl, s_) {
 // TODO: Implement https://github.com/purescript-c/purescript-prelude/blob/a878e8d9531cf8c549ef46dfce16988380792cc2/src/Data/Show.js#L12-L27
 PURS_FFI_FUNC_1(Data_Show_showCharImpl, x) {
 	purs_char_t chr = purs_any_force_char(x);
-	size_t bytes = utf8codepointsize(chr);
-	char *buf = malloc(bytes + 1);
-	utf8catcodepoint(buf, chr, bytes);
-	buf[bytes + 1] = '\0';
+	size_t n_bytes = utf8codepointsize(chr);
+	char *buf = purs_malloc(n_bytes + 1);
+	char *write = (char*) utf8catcodepoint(buf, chr, n_bytes);
+	purs_assert(write != NULL, "utf8catcodepoint returned NULL");
+	if (write != NULL) {
+		*write = '\0';
+	}
 	purs_any_t out = purs_any_string(purs_str_new("'%s'", buf));
-	free(buf);
+	purs_free(buf);
 	return out;
 }
 
@@ -43,7 +46,7 @@ static inline purs_any_t showArrayImpl(purs_any_t f, purs_any_t xs_) {
 
 	const purs_vec_t *xs = purs_any_force_array(xs_);
 
-	if (xs == NULL) {
+	if (xs == NULL /* empty */) {
 		/* todo: could be statically allocated */
 		ret = purs_str_new("[]");
 		goto end;

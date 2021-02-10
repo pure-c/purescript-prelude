@@ -5,13 +5,10 @@ include $(PUREC_DIR)/mk/target.mk
 
 main: .spago
 
-main_CFLAGS = -g
-main_LD_FLAGS = -lm
+CFLAGS = -g -O0
+LDFLAGS = -lm
 
 $(eval $(call purs_mk_target,main,Test.Main,src test))
-$(eval $(call purs_mk_target,lib,,src))
 
-check: main
-	./main.out
-
-.PHONY: check
+main_leakcheck: main
+check: main_leakcheck

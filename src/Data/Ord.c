@@ -5,8 +5,8 @@ static const purs_any_t pos_one = PURS_ANY_INT(1);
 static const purs_any_t zero = PURS_ANY_INT(0);
 
 PURS_FFI_FUNC_3(Data_Ord_ordArrayImpl, f, _xs, _ys) {
-	const purs_vec_t * xs = purs_any_force_array(_xs);
-	const purs_vec_t * ys = purs_any_force_array(_ys);
+	const purs_vec_t *xs = purs_any_force_array(_xs);
+	const purs_vec_t *ys = purs_any_force_array(_ys);
 
 	purs_any_t ret;
 	purs_any_t o;
