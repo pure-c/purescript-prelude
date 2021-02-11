@@ -3,7 +3,8 @@
 PURS_FFI_FUNC_2(Data_Functor_arrayMap, f, _xs) {
 	const purs_vec_t *xs = purs_any_force_array(_xs);
 
-	if (xs == NULL /* empty */) {
+	if (purs_vec_is_empty(xs)) {
+		PURS_RC_RELEASE(xs);
 		return purs_any_array_empty;
 	}
 

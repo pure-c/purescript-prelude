@@ -10,15 +10,17 @@ PURS_FFI_FUNC_3(Data_Eq_eqArrayImpl, f, xs_, ys_) {
 	const purs_vec_t *xs = purs_any_force_array(xs_);
 	const purs_vec_t *ys = purs_any_force_array(ys_);
 
-	if (xs == NULL /* empty */ && ys == NULL /* empty */) {
-		if (xs != NULL) PURS_RC_RELEASE(xs);
-		if (ys != NULL) PURS_RC_RELEASE(ys);
+	if (purs_vec_is_empty(xs) && purs_vec_is_empty(ys)) {
+		PURS_RC_RELEASE(xs);
+		PURS_RC_RELEASE(ys);
 		return purs_any_true;
-	} else if (xs == NULL /* empty */) {
+	} else if (purs_vec_is_empty(xs)) {
+		PURS_RC_RELEASE(xs);
 		PURS_RC_RELEASE(ys);
 		return purs_any_false;
-	} else if (ys == NULL) {
+	} else if (purs_vec_is_empty(ys)) {
 		PURS_RC_RELEASE(xs);
+		PURS_RC_RELEASE(ys);
 		return purs_any_false;
 	}
 
