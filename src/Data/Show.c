@@ -46,7 +46,7 @@ static inline purs_any_t showArrayImpl(purs_any_t f, purs_any_t xs_) {
 
 	const purs_vec_t *xs = purs_any_force_array(xs_);
 
-	if (xs == NULL /* empty */) {
+	if (purs_vec_is_empty(xs)) {
 		/* todo: could be statically allocated */
 		ret = purs_str_new("[]");
 		goto end;

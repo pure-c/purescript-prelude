@@ -5,8 +5,8 @@ include $(PUREC_DIR)/mk/target.mk
 
 main: .spago
 
-CFLAGS = -g -O0
-LDFLAGS = -lm
+CFLAGS = -g3 -O0
+LDFLAGS = -lm -ltcmalloc -lprofiler
 
 $(eval $(call purs_mk_target,main,Test.Main,src test))
 
