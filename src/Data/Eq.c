@@ -29,16 +29,18 @@ PURS_FFI_FUNC_3(Data_Eq_eqArrayImpl, f, xs_, ys_) {
 		goto end;
 	} else {
 		int i;
-		purs_any_t tmp;
-		purs_any_t tmp_f;
-		purs_vec_foreach(xs, tmp, i) {
-			tmp_f = purs_any_app(f, tmp);
-			if (purs_any_is_false(purs_any_app(tmp_f,
-							   ys->data[i]))) {
-				PURS_ANY_RELEASE(tmp_f);
-				return purs_any_false;
+		purs_any_t tmp1, tmp2;
+		for (i = 0; i < xs->length; i++) {
+			tmp1 = purs_any_app(f, xs->data[i]);
+			tmp2 = purs_any_app(tmp1, ys->data[i]);
+			if (purs_any_eq(tmp2, purs_any_false)) {
+				PURS_ANY_RELEASE(tmp2);
+				PURS_ANY_RELEASE(tmp1);
+				ret = purs_any_false;
+				goto end;
 			}
-			PURS_ANY_RELEASE(tmp_f);
+			PURS_ANY_RELEASE(tmp2);
+			PURS_ANY_RELEASE(tmp1);
 		}
 		ret = purs_any_true;
 		goto end;
