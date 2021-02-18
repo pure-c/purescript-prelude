@@ -36,12 +36,10 @@ PURS_FFI_FUNC_3(Record_Unsafe_unsafeSet, key_, value, rec_) {
 }
 
 PURS_FFI_FUNC_2(Record_Unsafe_unsafeDelete, key_, rec_) {
-	assert(0); /* todo: implement */
-
-	/* const purs_record_t * rec = purs_any_force_record(rec_); */
-	/* const purs_str_t * key = purs_any_force_string(key_); */
-	/* const purs_any_t out = purs_any_record(purs_record_remove(rec, key)); */
-	/* PURS_RC_RELEASE(key); */
-	/* PURS_RC_RELEASE(rec); */
-	/* return out; */
+	const purs_record_t * rec = purs_any_force_record(rec_);
+	const purs_str_t * key = purs_any_force_string(key_);
+	const purs_any_t out = purs_any_record(purs_record_remove(rec, key));
+	PURS_RC_RELEASE(key);
+	PURS_RC_RELEASE(rec);
+	return out;
 }
