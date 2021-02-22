@@ -1,9 +1,9 @@
 #include <purescript.h>
 
 PURS_FFI_FUNC_2(Record_Unsafe_unsafeHas, key_, rec_) {
-	const purs_record_t * rec = purs_any_force_record(rec_);
-	const purs_str_t * key = purs_any_force_string(key_);
-	const purs_any_t * val = purs_record_find_by_key(rec, key->data);
+	const purs_record_t *rec = purs_any_force_record(rec_);
+	const purs_str_t *key = purs_any_force_string(key_);
+	const purs_any_t *val = purs_record_find_by_key(rec, key);
 	if (val != NULL) {
 		PURS_RC_RELEASE(key);
 		PURS_RC_RELEASE(rec);
@@ -16,9 +16,9 @@ PURS_FFI_FUNC_2(Record_Unsafe_unsafeHas, key_, rec_) {
 }
 
 PURS_FFI_FUNC_2(Record_Unsafe_unsafeGet, key_, rec_) {
-	const purs_record_t * rec = purs_any_force_record(rec_);
-	const purs_str_t * key = purs_any_force_string(key_);
-	const purs_any_t * val = purs_record_find_by_key(rec, key->data);
+	const purs_record_t *rec = purs_any_force_record(rec_);
+	const purs_str_t *key = purs_any_force_string(key_);
+	const purs_any_t *val = purs_record_find_by_key(rec, key);
 	assert(val != NULL);
 	PURS_RC_RELEASE(key);
 	PURS_RC_RELEASE(rec);
@@ -27,17 +27,17 @@ PURS_FFI_FUNC_2(Record_Unsafe_unsafeGet, key_, rec_) {
 }
 
 PURS_FFI_FUNC_3(Record_Unsafe_unsafeSet, key_, value, rec_) {
-	const purs_record_t * rec = purs_any_force_record(rec_);
-	const purs_str_t * key = purs_any_force_string(key_);
-	const purs_any_t out = purs_any_record(purs_record_add(rec, key->data, value));
+	const purs_record_t *rec = purs_any_force_record(rec_);
+	const purs_str_t *key = purs_any_force_string(key_);
+	const purs_any_t out = purs_any_record(purs_record_add(rec, key, value));
 	PURS_RC_RELEASE(key);
 	PURS_RC_RELEASE(rec);
 	return out;
 }
 
 PURS_FFI_FUNC_2(Record_Unsafe_unsafeDelete, key_, rec_) {
-	const purs_record_t * rec = purs_any_force_record(rec_);
-	const purs_str_t * key = purs_any_force_string(key_);
+	const purs_record_t *rec = purs_any_force_record(rec_);
+	const purs_str_t *key = purs_any_force_string(key_);
 	const purs_any_t out = purs_any_record(purs_record_remove(rec, key));
 	PURS_RC_RELEASE(key);
 	PURS_RC_RELEASE(rec);
